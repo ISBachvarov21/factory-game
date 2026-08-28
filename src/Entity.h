@@ -1,12 +1,10 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <string>
-
 #include "Ids.h"
 #include "Transform.h"
 
-// todo: expose _entity in lua objects. have an entity handle class expose it?
+// todo: expose _entity in lua objects.
 
 struct Entity {
     EntityId Id = 0;

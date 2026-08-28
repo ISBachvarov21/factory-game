@@ -4,6 +4,7 @@
 
 void LuaRuntime::init() {
     m_lua.open_libraries(sol::lib::base, sol::lib::package, sol::lib::table);
+    m_world.SetLuaRuntime(this);
 
     std::string packagePath = m_lua["package"]["path"];
     packagePath += ";../../scripts/?.lua;../../scripts/?/init.lua";
@@ -24,7 +25,7 @@ void LuaRuntime::init() {
     m_lua.new_usertype<World>("World",
         "spawn", [this](World* world, const std::string &className) {
             ClassId class_id = this->m_classRegistry.get(className).id;
-            return world->SpawnEntity(class_id, this->m_classRegistry, this->m_lua);
+            return world->SpawnEntity(class_id);
         },
         "deleteEntity", &World::DeleteEntity,
         "deleteAllEntities", &World::DeleteAllEntities,

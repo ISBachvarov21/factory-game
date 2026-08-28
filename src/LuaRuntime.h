@@ -12,6 +12,8 @@ public:
     void init();
     void load_definitions();
 
+    friend class World;
+
 private:
     sol::state m_lua;
     ClassRegistry m_classRegistry;
