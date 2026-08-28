@@ -9,6 +9,7 @@
 
 class LuaRuntime; // forward declaration to avoid circular include
 
+// todo: proper m_runtime pointer clean-up
 class World {
     std::unordered_map<EntityId, Entity> m_entities;
     std::unordered_map<ClassId, std::vector<EntityId>> m_entities_by_classes;

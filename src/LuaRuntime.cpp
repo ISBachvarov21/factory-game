@@ -14,8 +14,7 @@ void LuaRuntime::init() {
     m_lua["register_class"] = [this](const std::string& className, const sol::table& lua_class) {
         ClassDefinition class_definition;
         class_definition.name = className;
-        AssetId assetId;
-        if ((assetId = lua_class.get_or("_asset_id", 0)) != 0) {
+        if (AssetId assetId; (assetId = lua_class.get_or("_asset_id", 0)) != 0) {
             class_definition.asset_id = assetId;
         }
         class_definition.lua_class = lua_class;
@@ -32,6 +31,22 @@ void LuaRuntime::init() {
         "getEntityById", &World::GetEntity,
         "getAllEntityIdsFromClass", &World::GetAllEntityIdsFromClass
     );
+
+    m_lua.new_usertype<Transform>("Transform",
+        "x", &Transform::x,
+        "y", &Transform::y,
+        "rotation", &Transform::rotation,
+        "scale_x", &Transform::scale_x,
+        "scale_y", &Transform::scale_y
+    );
+    m_lua.new_usertype<Entity>("Entity",
+        "id", &Entity::Id,
+        "asset_id", &Entity::AssetId,
+        "class_id", &Entity::ClassId,
+        "transform", &Entity::Transform,
+        "should_show", &Entity::shouldShow
+    );
+
     m_lua["world"] = &m_world;
 }
 

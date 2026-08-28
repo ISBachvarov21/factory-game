@@ -10,7 +10,7 @@ function Example:init()
     print("Initting from lua")
 end
 
---Example._asset_id = 1
+Example._asset_id = 1
 
 register_class("Example", Example)
 
@@ -21,4 +21,4 @@ local id = example._entity_id
 local example_from_id = world:getEntityById(id)
 example_from_id:test()
 
-print(example._asset_id)
+print(example._entity_ref.transform.scale_x)

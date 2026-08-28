@@ -9,9 +9,12 @@ sol::table World::CreateLuaInstance(
     const auto& definition =
         m_runtime->m_classRegistry.get(class_id);
 
+    std::cout << "Spawning with asset_id of: " << definition.asset_id << std::endl;
+
     sol::table instance = m_runtime->m_lua.create_table();
 
     instance["_entity_id"] = entity_id;
+    instance["_entity_ref"] = m_entities.at(entity_id);
 
     instance[sol::metatable_key] =
         definition.lua_class;
@@ -41,6 +44,7 @@ sol::table World::SpawnEntity(ClassId class_id) {
         entity_id,
         Entity{
             .Id = entity_id,
+            .AssetId = m_runtime->m_classRegistry.get(class_id).asset_id,
             .ClassId = class_id,
         }
     );

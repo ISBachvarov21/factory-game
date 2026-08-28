@@ -4,8 +4,6 @@
 #include "Ids.h"
 #include "Transform.h"
 
-// todo: expose _entity in lua objects.
-
 struct Entity {
     EntityId Id = 0;
     AssetId AssetId = 0;
